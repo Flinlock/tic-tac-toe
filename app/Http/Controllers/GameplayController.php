@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class GameplayController extends Controller
 {
+    /**
+     * Record a new gameplay move and return the game status as an array
+     */
     public function move(Game $game)
     {
         $location = request('location');
@@ -25,6 +28,9 @@ class GameplayController extends Controller
         ];
     }
 
+    /**
+     * Start a new game
+     */
     public function new()
     {
         $game = new Game();

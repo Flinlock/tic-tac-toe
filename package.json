@@ -7,7 +7,8 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "production-deploy": "rsync -avz -e 'ssh -p 2221' --exclude 'node_modules' --exclude '.git' --exclude '.env' --exclude '.htaccess' --delete . twirltech@twirltech.solutions:tic-tac-toe.twirltech.solutions"
     },
     "devDependencies": {
         "axios": "^0.21",

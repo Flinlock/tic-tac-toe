@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameplayController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/games/{game}/move', [GameplayController::class, 'move']);
+Route::get('/games/new', [GameplayController::class, 'new']);

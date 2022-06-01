@@ -26,6 +26,27 @@ class PositionTest extends TestCase
     }
 
     /** @test */
+    public function it_has_an_optional_value()
+    {
+        // $this->withoutExceptionHandling();
+        $position = new Position([
+            'game_id' => 1,
+            'location' => 1,
+        ]);
+
+        $position->save();
+        $position->refresh();
+
+        $this->assertNull($position->value);
+
+        $position->value = 'x';
+        $position->save();
+        $position->refresh();
+
+        $this->assertEquals('x', $position->value);
+    }
+
+    /** @test */
     public function it_has_a_starting_value_of_null()
     {
         // $this->withoutExceptionHandling();

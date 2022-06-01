@@ -17,6 +17,7 @@ class CreateGamesTable extends Migration
             $table->id();
 
             $table->enum('status', ['active', 'complete'])->default('active');
+            $table->string('victor')->nullable();
 
             $table->timestamps();
         });

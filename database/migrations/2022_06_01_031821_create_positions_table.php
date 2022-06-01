@@ -18,6 +18,7 @@ class CreatePositionsTable extends Migration
 
             $table->unsignedBigInteger('game_id');
             $table->integer('location');
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }

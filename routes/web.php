@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameplayController;
+use App\Models\Game;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $results = [
+        'total' => Game::count(),
+        'human' => Game::where('victor', 'x')->count(),
+        'computer' => Game::where('victor', 'o')->count(),
+        'cat' => Game::where('status', 'complete')->whereNull('victor')->count(),
+    ];
+    return view('welcome', compact('results'));
 });
 
 Route::post('/games/{game}/move', [GameplayController::class, 'move']);

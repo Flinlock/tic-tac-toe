@@ -21,6 +21,8 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+
+        <script type="text/javascript" src="{{ secure_asset('js/app.js') }}" defer></script>
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
@@ -48,9 +50,13 @@
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </div>
                 </div>
+                <hr style="border: 1px solid #e2e8f0">
+                <div>Total games played: {{ $results['total'] }}</div>
+                <div>Human victories: {{ $results['human'] }}</div>
+                <div>Computer victories: {{ $results['computer'] }}</div>
+                <div>Cat victories: {{ $results['cat'] }}</div>
             </div>
         </div>
 
-        <script src="{{ secure_asset('js/app.js') }}"></script>
     </body>
 </html>

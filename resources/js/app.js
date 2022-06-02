@@ -1,12 +1,17 @@
-require('./bootstrap');
-
-console.log('script is loading');
-
+// require('./bootstrap');
 let gameId;
 let gameComplete;
 let gameContainer = document.getElementById('game-container');
 
+window.onload = function() {
+	newGame();
+}
+
 document.getElementById('new-game').onclick = function() {
+	window.location.reload();
+}
+
+function newGame() {
 	gameComplete = false;
 	// request a new game from the backend and set the game ID
 	fetch(window.location.href + 'games/new').then(response => {
@@ -15,8 +20,6 @@ document.getElementById('new-game').onclick = function() {
 		gameId = data.id;
 		resetGameBoard();
 	});
-
-	// populate the gameboard with nine positions
 }
 
 function resetGameBoard() {

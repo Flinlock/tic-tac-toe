@@ -84,18 +84,26 @@ function playMove(position) {
     if (data.status == 'complete') {
       finishGame(data);
     } else {
-      playComputerMove(data.openPositions);
+      playComputerMove(data);
     }
   });
 }
 /**
  * Execute a computer move in a random open position
- * @param {array} openPositions Available positions for the computer to choose from
+ * @param {data} contains an array of open positions and a recommended move (if available)
  */
 
 
-function playComputerMove(openPositions) {
-  var location = openPositions[Math.floor(Math.random() * openPositions.length)];
+function playComputerMove(data) {
+  console.log(data);
+  var location;
+
+  if (data.recommendedMove !== false) {
+    location = data.recommendedMove;
+  } else {
+    location = data.openPositions[Math.floor(Math.random() * data.openPositions.length)];
+  }
+
   var position = document.getElementById('position-' + location);
   updatePosition(position, 'o'); // Send the move to the backend
 

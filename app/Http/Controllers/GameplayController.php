@@ -24,7 +24,8 @@ class GameplayController extends Controller
         return [
             'status' => $game->status,
             'victor' => $game->victor ?? false,
-            'openPositions' => $game->getOpenPositions()
+            'openPositions' => $game->getOpenPositions(),
+            'recommendedMove' => $game->recommendComputerMove()
         ];
     }
 

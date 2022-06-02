@@ -70,6 +70,24 @@ class GameTest extends TestCase
     }
 
     /** @test */
+    public function it_can_recommend_a_defensive_computer_move()
+    {
+        // $this->withoutExceptionHandling();
+        $game = new Game();
+        $game->save();
+        
+        $this->post($game->path() . '/move?location=0&value=x');
+        $game->refresh();
+        
+        $this->assertFalse($game->recommendComputerMove());
+
+        $this->post($game->path() . '/move?location=1&value=x');
+        $game->refresh();
+
+        $this->assertEquals(2, $game->recommendComputerMove());
+    }
+
+    /** @test */
     public function it_has_a_path()
     {
         // $this->withoutExceptionHandling();

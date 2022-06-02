@@ -102,6 +102,24 @@ class Game extends Model
         }
     }
 
+    /**
+     * Suggest moves to prevent the human player from winning
+     */
+    public function recommendComputerMove()
+    {
+        $xPositions = $this->positions()->where('value', 'x')->pluck('location')->toArray();
+        
+        foreach ($this->victoryConditions as $condition) {
+            // If only open one move from the condition remains, suggest that as the open move
+            $diff = array_diff($condition, $xPositions);
+            if (count($diff) == 1 && in_array(array_values($diff)[0], $this->getOpenPositions())) {
+                return array_values($diff)[0];
+            }
+        }
+
+        return false;
+    }
+
     public function path()
     {
         return '/games/' . $this->id;

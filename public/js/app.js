@@ -19,21 +19,26 @@ window.onload = function () {
 document.getElementById('new-game').onclick = function () {
   window.location.reload();
 };
+/**
+ * Request a new game and set the ID
+ */
+
 
 function newGame() {
-  gameComplete = false; // request a new game from the backend and set the game ID
-
+  gameComplete = false;
   fetch(window.location.href + 'games/new').then(function (response) {
     return response.json();
   }).then(function (data) {
     gameId = data.id;
-    resetGameBoard();
+    createGameBoard();
   });
 }
+/**
+ * Create the nine position tiles
+ */
 
-function resetGameBoard() {
-  emptyElement(gameContainer);
 
+function createGameBoard() {
   for (count = 0; count < 9; count++) {
     var position = document.createElement('div');
     position.classList.add('position', 'open');
@@ -48,6 +53,11 @@ function resetGameBoard() {
     gameContainer.appendChild(position);
   }
 }
+/**
+ * Execute a player move and then handle the updated game status
+ * @param {obj} position DOM element that was clicked
+ */
+
 
 function playMove(position) {
   if (gameComplete) {
@@ -71,8 +81,6 @@ function playMove(position) {
   }).then(function (response) {
     return response.json();
   }).then(function (data) {
-    console.log(data);
-
     if (data.status == 'complete') {
       finishGame(data);
     } else {
@@ -80,6 +88,11 @@ function playMove(position) {
     }
   });
 }
+/**
+ * Execute a computer move in a random open position
+ * @param {array} openPositions Available positions for the computer to choose from
+ */
+
 
 function playComputerMove(openPositions) {
   var location = openPositions[Math.floor(Math.random() * openPositions.length)];
@@ -101,12 +114,23 @@ function playComputerMove(openPositions) {
     }
   });
 }
+/**
+ * Update a game board position to indicate it has been played in
+ * @param {obj} position DOM element to be updated
+ * @param {string} value X or O 
+ */
+
 
 function updatePosition(position, value) {
   position.innerHTML = value;
   position.dataset.value = value;
   position.classList.remove('open');
 }
+/**
+ * Process the game results and announce the winner
+ * @param {obj} data the game results
+ */
+
 
 function finishGame(data) {
   gameComplete = true;
@@ -117,13 +141,6 @@ function finishGame(data) {
     alert('The computer beat you! Try harder next time.');
   } else {
     alert('The cat won this one!');
-  }
-} // Get rid of all child elements
-
-
-function emptyElement(element) {
-  while (element.hasChildNodes()) {
-    element.removeChild(element.lastChild);
   }
 }
 

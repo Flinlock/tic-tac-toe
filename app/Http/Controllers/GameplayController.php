@@ -33,6 +33,11 @@ class GameplayController extends Controller
      */
     public function new()
     {
+        // First clear out any unfinished games
+        $incomplete = Game::where('status', 'active')->get();
+        foreach ($incomplete as $i) {
+            $i->delete();
+        }
         $game = new Game();
         $game->save();
         $game->refresh();

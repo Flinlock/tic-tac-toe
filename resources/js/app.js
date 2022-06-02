@@ -46,7 +46,7 @@ function playMove(position) {
 	}
 
 	if (!position.classList.contains('open')) {
-		alert('You cannot play in the same position twice!');
+		alert('You can only play in a blank space!');
 		return;
 	}
 

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $results = [
-        'total' => Game::count(),
+        'total' => Game::where('status', 'complete')->count(),
         'human' => Game::where('victor', 'x')->count(),
         'computer' => Game::where('victor', 'o')->count(),
         'cat' => Game::where('status', 'complete')->whereNull('victor')->count(),
